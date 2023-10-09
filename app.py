@@ -8,12 +8,12 @@ driver = webdriver.Chrome()
 
 driver.get("https://metar-taf.com/countries")
 
-selector = 'body > div.bg-primary.text-white > div > div > div:nth-child(1) > section:nth-child(2) > nav  > a'
+selector = 'body > div.bg-primary.text-white > div > div > div:nth-child(1) > section:nth-child(3) > nav > a'
 
 countriesLength = len(driver.find_elements(By.CSS_SELECTOR, selector))
 
 AIRPORT_LINKS = []
-CONTINENT = 'europe'
+CONTINENT = 'asia'
 
 for p in range(0, countriesLength):
     country = driver.find_elements(By.CSS_SELECTOR,selector)[p]
