@@ -17,7 +17,6 @@ EUROPE_LINKS = []
 for i in range(0, euroCountriesLength):
     country = driver.find_elements(By.CSS_SELECTOR,selector)[i]
     country.click()
-    # entered the list of airports page in a country
     
     airPortsList = driver.find_elements(By.CSS_SELECTOR,'#w1 > table > tbody > tr')
     
@@ -48,7 +47,6 @@ for i in range(0, euroCountriesLength):
     
     
 json_data = json.dumps(EUROPE_LINKS)
- 
 with open("europe_airport_links.json", "w") as outfile:
     outfile.write(json_data)
 driver.quit()
