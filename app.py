@@ -10,12 +10,12 @@ driver.get("https://metar-taf.com/countries")
 
 selector = 'body > div.bg-primary.text-white > div > div > div:nth-child(1) > section:nth-child(2) > nav  > a'
 
-euroCountriesLength = len(driver.find_elements(By.CSS_SELECTOR, selector))
+countriesLength = len(driver.find_elements(By.CSS_SELECTOR, selector))
 
-EUROPE_LINKS = []
+AIRPORT_LINKS = []
+CONTINENT = 'europe'
 
-
-for p in range(0, euroCountriesLength):
+for p in range(0, countriesLength):
     country = driver.find_elements(By.CSS_SELECTOR,selector)[p]
     country.click()
     print("p is :",str(p))
@@ -35,7 +35,7 @@ for p in range(0, euroCountriesLength):
                 airport_link = cells[1].find_element(By.TAG_NAME,'a').get_attribute('href')
         
                 if airport_type in SUPPORTED_AIPORT_TYPES:
-                    EUROPE_LINKS.append(airport_link)
+                    AIRPORT_LINKS.append(airport_link)
     
             try:
                 driver.find_element(By.CSS_SELECTOR,'#w1 > ul')
@@ -57,8 +57,8 @@ for p in range(0, euroCountriesLength):
     driver.get("https://metar-taf.com/countries")
 
     
-json_data = json.dumps(EUROPE_LINKS)
-with open("europe_airport_links.json", "w") as outfile:
+json_data = json.dumps(AIRPORT_LINKS)
+with open(CONTINENT+"_airport_links.json", "w") as outfile:
     outfile.write(json_data)
 driver.quit()
 
