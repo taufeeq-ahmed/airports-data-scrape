@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 import json
 from re import sub
 driver = webdriver.Chrome()
-driver.implicitly_wait(3)
+driver.implicitly_wait(10)
 def snake_case(s):
         return '_'.join(
             sub('([A-Z][a-z]+)', r' \1',
@@ -115,9 +115,16 @@ def get_airport_full_data(link):
     runway_data_selector = 'body > div.bg-primary.text-white.tab-height.position-relative > div > div.row > div.col-xl-9.mb-4.mb-xl-5.pr-xl-5 > div > table > tbody > tr'
     nearby_data_selector = 'body > div.bg-primary.text-white.tab-height.position-relative > div > div.row > div:nth-child(8) > div:nth-child(2) > table > tbody > tr'
 
-    airport_button = driver.find_element(By.CSS_SELECTOR,'body > div.pb-2 > div > div > div > ul > li:nth-child(5) > a')
-    airport_button.click()
-    
+    try:
+        airport_button = driver.find_element(By.CSS_SELECTOR,'body > div.pb-2 > div > div > div > ul > li:nth-child(5) > a')
+        airport_button.click()
+    except NoSuchElementException:
+            return {
+                "aiport_data":{},
+                "runway_data":[],
+                'nearby_data':[]
+            }
+
     airport_all_data = {
         "aiport_data":get_airport_data(airport_data_selector),
         "runway_data":get_runway_data(runway_data_selector),
@@ -131,11 +138,11 @@ def start_scrape():
     all_links = json.loads(all_links_file.read())
     
     airports_data =[]
-    for i in range(0,len(all_links)):
+    for i in range(1000,len(all_links)):
         airport_full_data = get_airport_full_data(all_links[i])
         airports_data.append(airport_full_data)
         print(i)
-        if( (i+1)%1000 == 0):
+        if( (i+1)%500 == 0):
             json_data = json.dumps(airports_data)
             with open("first_"+str(i+1)+".json", "w") as outfile:
                 outfile.write(json_data) 
