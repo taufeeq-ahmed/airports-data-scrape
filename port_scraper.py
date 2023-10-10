@@ -137,7 +137,7 @@ def start_scrape():
         print(i)
         if( (i+1)%1000 == 0):
             json_data = json.dumps(airports_data)
-            with open("first_"+str(i)+".json", "w") as outfile:
+            with open("first_"+str(i+1)+".json", "w") as outfile:
                 outfile.write(json_data) 
         
     return airports_data
