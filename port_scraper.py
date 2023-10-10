@@ -11,7 +11,6 @@ airport_data_selector = 'body > div.bg-primary.text-white.tab-height.position-re
 runway_data_selector = 'body > div.bg-primary.text-white.tab-height.position-relative > div > div.row > div.col-xl-9.mb-4.mb-xl-5.pr-xl-5 > div > table > tbody > tr'
 nearby_data_selector = ''
 
-
 airport_button = driver.find_element(By.CSS_SELECTOR,'body > div.pb-2 > div > div > div > ul > li:nth-child(5) > a')
 airport_button.click()
 
